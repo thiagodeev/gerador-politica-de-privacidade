@@ -1,0 +1,27 @@
+/**
+    Ordernação da lista com sub-níveis.
+**/
+ol.list {
+    counter-reset: item;
+}
+
+li.list:before {
+    content: counters(item, ".") " ";
+    counter-increment: item;
+    font-weight: 600;
+    color: #055af9;
+}
+
+li.list h2,
+li.list h3,
+li.list > p {
+    display: inline-block;
+}
+
+ol.list > li.list:before {
+    font-size: 2em;
+}
+
+ol.list > li.list > ol.list > li.list:before {
+    font-size: 1.5em;
+}
