@@ -117,12 +117,35 @@ function createPrivacyPolicy(){
         
         }) */
 
-        (function (){
-            divList = "[data-main-list]"
+        (function addListCounter(){
+            let mainListingDivs = document.querySelectorAll("[data-main-list]");
+            /* let arrayOfMainListingDivs = [...mainListingDivs]; */
+
+            let index = 0;
+
+            for (let element of [...mainListingDivs]){
+                let mainDiv = element.children;
+                mainDiv = Array.from(mainDiv);
+
+                let currentElement = mainDiv[index];
+                
+                if(currentElement.hasAttribute("data-list") && !currentElement.hasAttribute("hidden")){
+                    let currentChildrensOfElement = currentElement.children;
+                    currentChildrensOfElement = Array.from(currentChildrensOfElement);
+
+                    let listCounter = 1;
+
+                    for(let element of currentChildrensOfElement){
+
+                        if(element.hasAttribute("data-list-title")){
+
+                            element.insertAdjacentText("afterbegin", listCounter + ". ");
+                            listCounter++;
+                        };
+                    };
+                }
+            };
         }());
-        [...document.querySelectorAll("[data-main-list]")].forEach(function (element){
-            element.querySelectorAll(`"${element}" > [data-list]`)
-        });
     })
 
 
