@@ -2,9 +2,9 @@ function createPrivacyPolicy(){
 
     let submit = document.getElementById("submit");
 
-    [...document.querySelectorAll("div[data-list]")].forEach(function (element, index){
+    /* [...document.querySelectorAll("div[data-list]")].forEach(function (element, index){
         console.log(element)
-    });
+    }); */
 
     // get fields values
     fields = {
@@ -26,14 +26,13 @@ function createPrivacyPolicy(){
                 fields[key] = element.value;
             } else
             if (element.attributes.type.nodeValue == "radio"){
-                fields[key] = [...value].filter(i => i.checked);
+                fields[key] = [...value].filter(element => element.checked);
             } else {
                 fields[key] = [...value];
             };
         })
     });
 
-    console.log(fields)
     // get checkbox elements
     let checkbox = {
         "trackers": document.querySelectorAll('input[name="trackers"]'),
@@ -46,70 +45,59 @@ function createPrivacyPolicy(){
         'monetizers': [],
     }
 
-    submit.addEventListener('click', function (e) {
-        e.preventDefault()
+    submit.addEventListener('click', function (event) {
+        event.preventDefault()
+        /* "#answer-section",
+        "div[id*='-answer']", */
 
-/*         let selectorsToHide = [
-            "#answer-section",
-            "div[id*='-answer']",
-            "div#en-answer",
-            "[data-checkbox-list='trackers']",
-            "[data-checkbox-list='monetizers']"
+        let varSelectorsToHide = [
+            "[data-checkbox-list]",
+            "[data-seo]"
             ];
     
-        function hidesElements (selectorsToHide){
+        (function hidesElements (selectorsToHide){
             let elementsToHide = document.querySelectorAll(selectorsToHide);
             [...elementsToHide].forEach.call(elementsToHide, function(element) {
-                element.setAttribute("hidden", "")
+                element.setAttribute("hidden", "");
             });
-        };
-        hidesElements(selectorsToHide); */
+        } (varSelectorsToHide));
 
 
         // loop to get the values from checkbox
         Object.entries(checkbox).forEach(function ([key, value]) {
             collections[key] =
                 Array.from(checkbox[key])
-                    .filter(i => i.checked)
-                    .map(i => i.value)
-        })
+                    .filter(element => element.checked)
+                    .map(element => element.value);
+        });
         
         // output the all fields values, append to text and show hide sections
         Object.entries(collections).forEach(function ([key, value]) {
             console.log(key)
+            console.log(value)
             if (value.length > 0){
-                document.querySelector(`li[data-checkbox-list="${key}"]`).removeAttribute("hidden");
+                document.querySelector(`div[data-checkbox-list="${key}"]`).removeAttribute("hidden");
                 let checkboxList = [];
 
-                value.forEach(function (checkboxName, index, array) {
+                value.forEach(function (checkboxName) {
                     checkboxList.push( " " + checkboxName)
                     
-                    /* if (!Object.is(array.length -1, index)){
-                        checkboxList.push( " " + checkboxName)
-                    } else {
-                        checkboxList.push(checkboxName)
-                    } */
-                    
-
-
-                    let checkboxDescriptionParagraph = document.querySelectorAll(`li[data-seo="${checkboxName}"]`)
+                    let checkboxDescriptionParagraph = document.querySelectorAll(`div[data-seo="${checkboxName}"]`)
 
                     if (checkboxDescriptionParagraph.length > 0) {
                         [...checkboxDescriptionParagraph].forEach(function (element){
                             element.removeAttribute("hidden");
+                            console.log(element);
                         })
                     }
-                    
-
-                    //<span data-trackers-list></span>
                 });
 
                 let path = "span[data-"+ key + "-list]";
                 [...document.querySelectorAll(path)].forEach(function (element){
                     element.innerHTML = checkboxList.toString();
                 })
-            }
-        })
+            };
+        });
 
         /* Object.values(fields).forEach(function (value) {
 
@@ -128,6 +116,13 @@ function createPrivacyPolicy(){
             })
         
         }) */
+
+        (function (){
+            divList = "[data-main-list]"
+        }());
+        [...document.querySelectorAll("[data-main-list]")].forEach(function (element){
+            element.querySelectorAll(`"${element}" > [data-list]`)
+        });
     })
 
 
