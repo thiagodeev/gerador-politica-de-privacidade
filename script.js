@@ -8,11 +8,11 @@ function createPrivacyPolicy(){
 
     // get fields values
     fields = {
-        "websiteGender": document.querySelectorAll('input[name="website-gender"]'),
         "website": document.getElementsByName('catch-website-name'),
+        "websiteGender": document.querySelectorAll('input[name="website-gender"]'),
         "websiteUrl": document.getElementsByName('catch-website-url'),
-        "companyGender": document.querySelectorAll('input[name="company-gender"]'),
         "company": document.getElementsByName('catch-company-name'),
+        "companyGender": document.querySelectorAll('input[name="company-gender"]'),
         "razao-social": document.getElementsByName('catch-razao-social'),
         "cnpj": document.getElementsByName('catch-cnpj',),
         "language": document.getElementsByName('language-list'),
@@ -51,13 +51,13 @@ function createPrivacyPolicy(){
         "div[id*='-answer']", */
 
         let varSelectorsToHide = [
-            "[data-checkbox-list]",
-            "[data-seo]"
+                "[data-checkbox-list]",
+                "[data-seo]"
             ];
     
         (function hidesElements (selectorsToHide){
             let elementsToHide = document.querySelectorAll(selectorsToHide);
-            [...elementsToHide].forEach.call(elementsToHide, function(element) {
+            [...elementsToHide].forEach(function (element) {
                 element.setAttribute("hidden", "");
             });
         } (varSelectorsToHide));
