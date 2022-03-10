@@ -71,7 +71,8 @@ function createPrivacyPolicy(){
                     .map(element => element.value);
         });
         
-        // output the all fields values, append to text and show hide sections
+        // filter the selected options of checkbox
+        
         Object.entries(collections).forEach(function ([key, value]) {
             console.log(key)
             console.log(value)
